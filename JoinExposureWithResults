@@ -1,0 +1,17 @@
+--This sql will join a results table with the exposure locations
+--Replace the test between asterisks before running
+
+Update *ContractName*.dbo.tLocation
+Set UserDefined1 = 1
+where *ContractName*.dbo.tLocation.LocationSID in
+(
+select subq.LocationSID from
+(Select top 100 Max(GroundUpLoss) AS MAXGroundUpLoss, B.LocationSID FROM *ContractName*.dbo.tLocation  A
+Join [*ResultDatabase*].[dbo].[t*ResultSID*_LOSS_ByLocation] B
+on A.LocationSID = B.LocationSID
+
+Group by B.LocationSID
+
+order by MAXGroundUpLoss desc)subq)
+
+
