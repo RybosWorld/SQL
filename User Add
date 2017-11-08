@@ -1,0 +1,16 @@
+--This sql will add a user's iNumber as an admin to the environment database that you are connected to
+
+USE [AIRSecurity]
+GO
+
+DECLARE     @return_value int
+
+--Substitute with iNumber and execute
+EXEC  @return_value = [dbo].[pINSTALL_AddUser]
+            @Domain = N'air-worldwide',
+            @DomainUserName = N'i#####',
+            @RoleSID = 1
+
+SELECT      'Return Value' = @return_value
+
+GO
